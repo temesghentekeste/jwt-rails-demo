@@ -8,10 +8,19 @@ class BalloonsController < ApplicationController
     def create 
         balloon = Balloon.new(name: params[:name])
 
-        if balloon.save 
-            render json: {balloon: balloon}, status: :created
+        authorized_headers = request.headers[:authorization]
+
+        if(authorized_headers)
+            token = authorized_headers.split(" "[1])
+            if balloon.save 
+                render json: {balloon: balloon}, status: :created
+            else
+                reder json: { error: "Something went wrong"}, status: :unprocessable_entity
+            end
         else
-            reder json: { error: "Something went wrong"}, status: :unprocessable_entity
+            render status: :unauthorized
         end
+
+      
     end
 end
