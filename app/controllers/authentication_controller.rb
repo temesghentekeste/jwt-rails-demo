@@ -4,6 +4,9 @@ class AuthenticationController < ApplicationController
 
         if !user
             render json: { "error": "Invalid username"}, status: :unauthorized
+            puts "****************************************"
+            p Rails.application.secrets.secret_key_base[0]
+            puts "****************************************"
         elsif user.authenticate(params[:password])
             secret_key = Rails.application.secrets.secret_key_base[0]
             puts "****************************************"
