@@ -1,12 +1,7 @@
 class AuthenticationController < ApplicationController
     def login
         user = User.find_by(username: params[:username])
-        puts "****************************************"
-        p Rails.application.secrets.secret_key_base[0] if Rails.application.secrets.secret_key_base
-        puts "****************************************"
-        p ENV["SECRET_KEY_BASE"]
-       "****************************************"
-       secret_key_base = Rails.application.secrets.secret_key_base ? Rails.application.secrets.secret_key_base : ENV["SECRET_KEY_BASE"]
+        secret_key_base = Rails.application.secrets.secret_key_base ? Rails.application.secrets.secret_key_base : ENV["SECRET_KEY_BASE"]
 
         if !user
             render json: { "error": "Invalid username"}, status: :unauthorized
