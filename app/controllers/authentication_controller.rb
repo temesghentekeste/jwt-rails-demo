@@ -12,6 +12,10 @@ class AuthenticationController < ApplicationController
             puts "****************************************"
             p secret_key
             puts "****************************************"
+            p ENV["SECRET_KEY_BASE"]
+            puts "****************************************"
+            p secret_key_base
+            puts "****************************************"
             token = JWT.encode(
                 {
                     id: user.id,
